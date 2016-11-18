@@ -23,13 +23,13 @@ var TopElementStyle = exports.TopElementStyle;
     AttachmentType[AttachmentType["TEMPLATE"] = 0] = "TEMPLATE";
 })(exports.AttachmentType || (exports.AttachmentType = {}));
 var AttachmentType = exports.AttachmentType;
-exports.getPostbackTypeString = (postbackTypeEnum) => {
+exports.getPostbackTypeString = function (postbackTypeEnum) {
     switch (postbackTypeEnum) {
         case PostbackType.SHOW_MOVIE_RATING:
             return 'SHOW_MOVIE_RATING';
     }
 };
-exports.getWebviewHeightRatioString = (webviewHeightRatioEnum) => {
+exports.getWebviewHeightRatioString = function (webviewHeightRatioEnum) {
     switch (webviewHeightRatioEnum) {
         case WebviewHeightRatio.COMPACT:
             return 'compact';
@@ -39,7 +39,7 @@ exports.getWebviewHeightRatioString = (webviewHeightRatioEnum) => {
             return 'full';
     }
 };
-exports.getButtonTypeString = (buttonTypeEnum) => {
+exports.getButtonTypeString = function (buttonTypeEnum) {
     switch (buttonTypeEnum) {
         case ButtonType.WEB_URL:
             return 'web_url';
@@ -47,7 +47,7 @@ exports.getButtonTypeString = (buttonTypeEnum) => {
             return 'postback';
     }
 };
-exports.getTopElementStyleString = (topElementStyleEnum) => {
+exports.getTopElementStyleString = function (topElementStyleEnum) {
     switch (topElementStyleEnum) {
         case TopElementStyle.COMPACT:
             return 'compact';
@@ -55,7 +55,7 @@ exports.getTopElementStyleString = (topElementStyleEnum) => {
             return 'large';
     }
 };
-exports.getAttachmentTypeString = (attachmentTypeEnum) => {
+exports.getAttachmentTypeString = function (attachmentTypeEnum) {
     switch (attachmentTypeEnum) {
         case AttachmentType.TEMPLATE:
             return 'template';

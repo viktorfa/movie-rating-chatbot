@@ -1,15 +1,15 @@
 'use strict';
-const request = require('request');
-const _ = require('lodash');
-const models_1 = require('./models');
-const OMDBURL = 'http://www.omdbapi.com/';
-const getOmdbSearchResponse = (query) => {
-    return new Promise((resolve, reject) => {
+var request = require('request');
+var _ = require('lodash');
+var models_1 = require('./models');
+var OMDBURL = 'http://www.omdbapi.com/';
+var getOmdbSearchResponse = function (query) {
+    return new Promise(function (resolve, reject) {
         request({
             url: OMDBURL,
             method: 'GET',
             qs: { s: query },
-        }, (error, response, body) => {
+        }, function (error, response, body) {
             if (error) {
                 console.log('Error sending messages: ', error);
                 reject(error);
@@ -25,14 +25,14 @@ const getOmdbSearchResponse = (query) => {
     });
 };
 exports.getOmdbSearchResponse = getOmdbSearchResponse;
-const getOmdbIdResponse = (imdbId) => {
-    console.log(`Looking up movie with ID: ${imdbId}`);
-    return new Promise((resolve, reject) => {
+var getOmdbIdResponse = function (imdbId) {
+    console.log("Looking up movie with ID: " + imdbId);
+    return new Promise(function (resolve, reject) {
         request({
             url: OMDBURL,
             method: 'GET',
             qs: { i: imdbId, tomatoes: true },
-        }, (error, response, body) => {
+        }, function (error, response, body) {
             if (error) {
                 console.log('Error sending messages: ', error);
                 reject(error);

@@ -1,82 +1,85 @@
 'use strict';
-class OmdbSearchResponse {
-    constructor(jsonResponse) {
+var OmdbSearchResponse = (function () {
+    function OmdbSearchResponse(jsonResponse) {
         this.originalObject = JSON.parse(jsonResponse);
         if (this.originalObject.Search) {
-            this.results = this.originalObject.Search.map(originalMovieObject => new CompactMovieObject(originalMovieObject));
+            this.results = this.originalObject.Search.map(function (originalMovieObject) { return new CompactMovieObject(originalMovieObject); });
         }
         else {
             this.results = [];
         }
     }
-    isValid() {
+    OmdbSearchResponse.prototype.isValid = function () {
         return this.originalObject.Response = 'True' && this.originalObject.Search && this.originalObject.Search.length > 0;
-    }
-    length() {
+    };
+    OmdbSearchResponse.prototype.length = function () {
         return this.results.length;
-    }
-    getResults() {
+    };
+    OmdbSearchResponse.prototype.getResults = function () {
         return this.results;
-    }
-}
+    };
+    return OmdbSearchResponse;
+}());
 exports.OmdbSearchResponse = OmdbSearchResponse;
-class FullMovieObject {
-    constructor(originalObject) {
+var FullMovieObject = (function () {
+    function FullMovieObject(originalObject) {
         this.originalObject = originalObject;
     }
-    isValid() {
+    FullMovieObject.prototype.isValid = function () {
         return this.originalObject.Response === 'True';
-    }
-    getImdbId() {
+    };
+    FullMovieObject.prototype.getImdbId = function () {
         return this.originalObject.imdbID;
-    }
-    getTitle() {
+    };
+    FullMovieObject.prototype.getTitle = function () {
         return this.originalObject.Title;
-    }
-    getYear() {
+    };
+    FullMovieObject.prototype.getYear = function () {
         return this.originalObject.Year;
-    }
-    getImageUrl() {
+    };
+    FullMovieObject.prototype.getImageUrl = function () {
         return this.originalObject.Poster;
-    }
-    getTomatoConsensus() {
+    };
+    FullMovieObject.prototype.getTomatoConsensus = function () {
         return this.originalObject.tomatoConsensus;
-    }
-    getImdbRating() {
+    };
+    FullMovieObject.prototype.getImdbRating = function () {
         return this.originalObject.imdbRating;
-    }
-    getTomatoMeter() {
+    };
+    FullMovieObject.prototype.getTomatoMeter = function () {
         return this.originalObject.tomatoMeter;
-    }
-    getTomatoUrl() {
+    };
+    FullMovieObject.prototype.getTomatoUrl = function () {
         return this.originalObject.tomatoURL;
-    }
-    getDirector() {
+    };
+    FullMovieObject.prototype.getDirector = function () {
         return this.originalObject.Director;
-    }
-    getActors() {
+    };
+    FullMovieObject.prototype.getActors = function () {
         return this.originalObject.Actors;
-    }
-    getGenre() {
+    };
+    FullMovieObject.prototype.getGenre = function () {
         return this.originalObject.Genre;
-    }
-}
+    };
+    return FullMovieObject;
+}());
 exports.FullMovieObject = FullMovieObject;
-class CompactMovieObject {
-    constructor(originalObject) {
+var CompactMovieObject = (function () {
+    function CompactMovieObject(originalObject) {
         this.originalObject = originalObject;
     }
-    getImdbId() {
+    CompactMovieObject.prototype.getImdbId = function () {
         return this.originalObject.imdbID;
-    }
-    getTitle() {
+    };
+    CompactMovieObject.prototype.getTitle = function () {
         return this.originalObject.Title;
-    }
-    getYear() {
+    };
+    CompactMovieObject.prototype.getYear = function () {
         return this.originalObject.Year;
-    }
-    getImageUrl() {
+    };
+    CompactMovieObject.prototype.getImageUrl = function () {
         return this.originalObject.Poster;
-    }
-}
+    };
+    return CompactMovieObject;
+}());
 exports.CompactMovieObject = CompactMovieObject;

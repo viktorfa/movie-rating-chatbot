@@ -7,14 +7,14 @@ if (!process.env.VERIFY_TOKEN) {
     console.log('Error: Specify VERIFY_TOKEN in environment');
     process.exit(1);
 }
-const _ = require('lodash');
-const request = require('request');
-const Botkit = require('botkit');
-const commandLineArgs = require('command-line-args');
-const localtunnel = require('localtunnel');
-const omdb = require('./omdbApi');
-const responses = require('./omdb-responses');
-const ops = commandLineArgs([
+var _ = require('lodash');
+var request = require('request');
+var Botkit = require('botkit');
+var commandLineArgs = require('command-line-args');
+var localtunnel = require('localtunnel');
+var omdb = require('./omdbApi');
+var responses = require('./omdb-responses');
+var ops = commandLineArgs([
     {
         name: 'lt', alias: 'l', args: 1, description: 'Use localtunnel.me to make your bot available on the web.',
         type: Boolean, defaultValue: false
@@ -29,17 +29,17 @@ if (ops.lt === false && ops.ltsubdomain !== null) {
     console.log("error: --ltsubdomain can only be used together with --lt.");
     process.exit();
 }
-const controller = Botkit.facebookbot({
+var controller = Botkit.facebookbot({
     debug: true,
     access_token: process.env.PAGE_TOKEN,
     verify_token: process.env.VERIFY_TOKEN,
 });
-const bot = controller.spawn({});
+var bot = controller.spawn({});
 controller.setupWebserver(process.env.port || 3000, function (err, webserver) {
     controller.createWebhookEndpoints(webserver, bot, function () {
         console.log('ONLINE!');
         if (ops.lt) {
-            const tunnel = localtunnel(process.env.port || 3000, { subdomain: ops.ltsubdomain }, function (err, tunnel) {
+            var tunnel = localtunnel(process.env.port || 3000, { subdomain: ops.ltsubdomain }, function (err, tunnel) {
                 if (err) {
                     console.log(err);
                     process.exit();
@@ -53,10 +53,10 @@ controller.setupWebserver(process.env.port || 3000, function (err, webserver) {
         }
     });
 });
-controller.on('facebook_postback', (bot, message) => {
+controller.on('facebook_postback', function (bot, message) {
     console.log("POSTBACK INVOKED");
     console.log(message);
-    const payload = JSON.parse(message.payload);
+    var payload = JSON.parse(message.payload);
     switch (payload.type) {
         case 'SHOW_MOVIE_RATING':
             handleShowMovieRatingPostback(bot, message, payload);
@@ -66,50 +66,50 @@ controller.on('facebook_postback', (bot, message) => {
     }
     return false;
 });
-controller.on('message_received', (bot, message) => {
+controller.on('message_received', function (bot, message) {
     console.log("MESSAGE RECEIVED");
     console.log(message);
     if (message.is_echo !== true && message.type === 'user_message' && message.text) {
-        bot.reply(message, `Searching for "${message.text}"`);
+        bot.reply(message, "Searching for \"" + message.text + "\"");
         omdb.getOmdbSearchResponse(message.text)
-            .then(data => handleOmdbSearchResponse(data, bot, message), error => console.log(error));
+            .then(function (data) { return handleOmdbSearchResponse(data, bot, message); }, function (error) { return console.log(error); });
     }
     return false;
 });
-const handleOmdbSearchResponse = (omdbResponse, bot, message) => {
+var handleOmdbSearchResponse = function (omdbResponse, bot, message) {
     if (omdbResponse.isValid()) {
         if (omdbResponse.length() === 1) {
             handleShowMovieById(bot, message, omdbResponse.getResults()[0].getImdbId());
         }
         else {
-            const response = responses.getSearchResponse(omdbResponse).build();
+            var response = responses.getSearchResponse(omdbResponse).build();
             console.log("RESPONSE:::");
             console.log(response);
             bot.reply(message, response);
         }
     }
     else {
-        bot.reply(message, `Did not find any movies for "${message.text}"`);
+        bot.reply(message, "Did not find any movies for \"" + message.text + "\"");
     }
 };
-const handleShowMovieRatingPostback = (bot, message, payload) => {
+var handleShowMovieRatingPostback = function (bot, message, payload) {
     console.log("Handling movieratingpostback:::");
     console.log(message);
     handleShowMovieById(bot, message, payload.imdbId);
 };
-const handleShowMovieById = (bot, message, imdbId) => {
-    omdb.getOmdbIdResponse(imdbId).then((omdbResponse) => {
+var handleShowMovieById = function (bot, message, imdbId) {
+    omdb.getOmdbIdResponse(imdbId).then(function (omdbResponse) {
         console.log("DETAILED RESPONSE OBJECT");
         console.log(omdbResponse);
         if (omdbResponse.isValid()) {
             handleMovieDetailResponse(bot, message, omdbResponse);
         }
-    }, error => {
-        console.log(`Error with getting movie with id: ${imdbId}`);
+    }, function (error) {
+        console.log("Error with getting movie with id: " + imdbId);
         console.log(error);
     });
 };
-const handleMovieDetailResponse = (bot, message, movieObject) => {
-    const response = responses.getDetailedRatingResponse(movieObject).build();
+var handleMovieDetailResponse = function (bot, message, movieObject) {
+    var response = responses.getDetailedRatingResponse(movieObject).build();
     bot.reply(message, response);
 };
