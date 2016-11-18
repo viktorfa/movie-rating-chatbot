@@ -1,0 +1,18 @@
+{
+  "name": "movie-rating-server",
+  "version": "0.0.1",
+  "description": "Facebook Messenger bot for getting movie ratings",
+  "main": "app.js",
+  "dependencies": {
+    "botkit": "^0.4.1",
+    "es6-shim": "^0.35.1",
+    "lodash": "^4.17.2",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
