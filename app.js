@@ -1,10 +1,10 @@
 'use strict';
-if (!process.env.page_token) {
-    console.log('Error: Specify page_token in environment');
+if (!process.env.PAGE_TOKEN) {
+    console.log('Error: Specify PAGE_TOKEN in environment');
     process.exit(1);
 }
-if (!process.env.verify_token) {
-    console.log('Error: Specify verify_token in environment');
+if (!process.env.VERIFY_TOKEN) {
+    console.log('Error: Specify VERIFY_TOKEN in environment');
     process.exit(1);
 }
 const _ = require('lodash');
@@ -32,7 +32,7 @@ if (ops.lt === false && ops.ltsubdomain !== null) {
 const controller = Botkit.facebookbot({
     debug: true,
     access_token: process.env.PAGE_TOKEN,
-    verify_token: process.env.VERIFY_TOKEN,
+    VERIFY_TOKEN: process.env.VERIFY_TOKEN,
 });
 const bot = controller.spawn({});
 controller.setupWebserver(process.env.port || 3000, function (err, webserver) {
