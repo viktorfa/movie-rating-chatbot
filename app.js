@@ -32,7 +32,7 @@ if (ops.lt === false && ops.ltsubdomain !== null) {
 const controller = Botkit.facebookbot({
     debug: true,
     access_token: process.env.PAGE_TOKEN,
-    VERIFY_TOKEN: process.env.VERIFY_TOKEN,
+    verify_token: process.env.VERIFY_TOKEN,
 });
 const bot = controller.spawn({});
 controller.setupWebserver(process.env.port || 3000, function (err, webserver) {
