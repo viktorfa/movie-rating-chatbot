@@ -31,6 +31,7 @@ if (ops.lt === false && ops.ltsubdomain !== null) {
 }
 var controller = Botkit.facebookbot({
     debug: true,
+    hostname: '0.0.0.0',
     access_token: process.env.PAGE_TOKEN,
     verify_token: process.env.VERIFY_TOKEN,
 });
