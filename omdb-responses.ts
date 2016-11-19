@@ -22,7 +22,7 @@ const getSearchResponse = (searchResponse: OmdbSearchResponse): messageModels.Me
         ))
     });
 
-    return new messageModels.MessageAttachment(new messageModels.ListTemplate(elements, TopElementStyle.COMPACT));
+    return new messageModels.MessageAttachment(new messageModels.ListTemplate(elements, TopElementStyle.LARGE));
 };
 
 const getDetailedRatingResponse = (movieObject: FullMovieObject): messageModels.MessageAttachment => {

@@ -8,7 +8,7 @@ var getSearchResponse = function (searchResponse) {
     _.each(_.take(searchResponse.getResults(), 4), function (movieObject) {
         elements.push(new messageModels.ListElement(movieObject.getTitle(), movieObject.getYear(), hasPoster(movieObject) ? movieObject.getImageUrl() : DEFAULT_IMAGE_URL, new messageModels.MessengerAction(getImdbUrl(movieObject)), [new messageModels.PostbackButton('Ratings', new messageModels.ShowMovieRatingPostbackPayload(movieObject.getImdbId()))]));
     });
-    return new messageModels.MessageAttachment(new messageModels.ListTemplate(elements, message_types_1.TopElementStyle.COMPACT));
+    return new messageModels.MessageAttachment(new messageModels.ListTemplate(elements, message_types_1.TopElementStyle.LARGE));
 };
 exports.getSearchResponse = getSearchResponse;
 var getDetailedRatingResponse = function (movieObject) {
