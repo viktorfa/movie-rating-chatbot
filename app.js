@@ -57,15 +57,21 @@ controller.setupWebserver(process.env.PORT || 3000, function (err, webserver) {
 controller.on('facebook_postback', function (bot, message) {
     console.log("POSTBACK INVOKED");
     console.log(message);
+    // First checking if the payload is simply a string
+    switch (message.payload) {
+        case 'GET_STARTED':
+            bot.reply(message, "Send a movie title to search for ratings");
+            return;
+    }
     var payload = JSON.parse(message.payload);
+    // If not a string, it's a parseable JSON object
     switch (payload.type) {
         case 'SHOW_MOVIE_RATING':
             handleShowMovieRatingPostback(bot, message, payload);
             break;
         default:
-            console.log("Got a postback");
+            console.log("Got a postback, but don't know its type");
     }
-    return false;
 });
 controller.on('message_received', function (bot, message) {
     console.log("MESSAGE RECEIVED");

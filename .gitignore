@@ -84,4 +84,6 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# Files with sensitive information
 info.txt
+get_started.sh
