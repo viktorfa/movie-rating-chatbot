@@ -30,8 +30,9 @@ var getTemplateSubtitle = function (movieObject) {
         result = movieObject.getTomatoConsensus();
     }
     else if (movieObject.getDirector() !== 'N/A') {
-        result += movieObject.getDirector() + ' ';
+        result += movieObject.getDirector();
         if (movieObject.getActors() !== 'N/A') {
+            result += ', ';
             result += movieObject.getActors();
         }
     }

@@ -63,8 +63,9 @@ const getTemplateSubtitle = (movieObject: FullMovieObject): string => {
     if (movieObject.getTomatoConsensus() !== 'N/A') {
         result = movieObject.getTomatoConsensus();
     } else if (movieObject.getDirector() !== 'N/A') {
-        result += movieObject.getDirector() + ' ';
+        result += movieObject.getDirector();
         if (movieObject.getActors() !== 'N/A') {
+            result += ', ';
             result += movieObject.getActors();
         }
     } else if (movieObject.getGenre() !== 'N/A') {
